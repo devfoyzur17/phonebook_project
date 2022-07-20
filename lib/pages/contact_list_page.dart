@@ -43,19 +43,23 @@ class _ContactListPageState extends State<ContactListPage> {
                 alignment: Alignment.centerRight,
                 child: Icon(Icons.delete, color: Colors.white,),
               ),
-              child: ListTile(
-
-                onTap: (){
-                  Navigator.pushNamed(context, ContactDetailsPage.routeName,arguments: contact.id);
-                },
-
-                title: Text(contact.name),
-                subtitle: Text(contact.number),
-                trailing: IconButton(
-                    onPressed: (){
-                      final value = contact.favourite?0:1;
-                      //  provider.updateFavorite(contact.id!, value, index);
-                }, icon: Icon(contact.favourite ? Icons.favorite : Icons.favorite_border,color: Colors.red,)),
+              child: Card(
+                elevation: 1,
+                child: ListTile(
+                  
+              
+                  onTap: (){
+                    Navigator.pushNamed(context, ContactDetailsPage.routeName,arguments: contact.id);
+                  },
+              
+                  title: Text(contact.name),
+                  subtitle: Text(contact.number),
+                  trailing: IconButton(
+                      onPressed: (){
+                        final value = contact.favourite?0:1;
+                          provider.updateFavorite(contact.id!, value, index);
+                  }, icon: Icon(contact.favourite ? Icons.favorite : Icons.favorite_border,color: Colors.red,)),
+                ),
               ),
             );
             }),

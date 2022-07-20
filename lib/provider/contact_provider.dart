@@ -28,5 +28,16 @@ class ContactProvider extends ChangeNotifier{
       
     });
   }
+
+  Future<ContactModel> getContactById(int id) => DBHelper.getContactById(id);
+
+
+  updateFavorite(int id, int value, int index){
+    DBHelper.updateFavorite(id, value).then((value) {
+      contactList[index].favourite = ! contactList[index].favourite;
+      notifyListeners();
+    });
+
+  }
   
 }
