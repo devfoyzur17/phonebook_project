@@ -54,7 +54,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
-                                child: contact!.image == null
+                                child:  contact!.image == null
                                     ? (contact.gender == "Female"
                                         ? Image.asset(
                                             "assets/images/female.png",
@@ -65,7 +65,8 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                                             height: 200,
                                             width: 200,
                                             fit: BoxFit.cover))
-                                    : Image.file(File(contact.image.toString()),
+                                    : Image.file(
+                                        File(contact.image.toString()),
                                         height: 200,
                                         width: 200,
                                         fit: BoxFit.cover),
@@ -86,97 +87,101 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                           ),
                         ],
                       ),
+
                       Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        elevation: 2,
-                        color: Color(0xffffebe6),
-                        shadowColor: Colors.black,
-                        child: ListTile(
-                          title: Text(
-                            contact.number,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                                letterSpacing: 1),
-                          ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.phone,
-                                    color: Colors.black87,
-                                  )),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.message,
-                                    color: Colors.black87,
-                                  )),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        elevation: 2,
-                        color: Color(0xffffebe6),
-                        shadowColor: Colors.black,
-                        child: ListTile(
-                          title: Text(
-                            contact.email == null || contact.email!.isEmpty
-                                ? "No email added!"
-                                : contact.email.toString(),
-                            style:
-                                contact.email == null || contact.email!.isEmpty
-                                    ? TextStyle(color: Colors.grey)
-                                    : TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16,
-                                        letterSpacing: 1),
-                          ),
-                          trailing: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.email_outlined,
-                                color: Colors.black87,
-                              )),
-                        ),
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        elevation: 2,
-                        color: Color(0xffffebe6),
-                        shadowColor: Colors.black,
-                        child: ListTile(
-                          title: Text(
-                            contact.address == null || contact.address!.isEmpty
-                                ? "No location added!"
-                                : contact.address.toString(),
-                            style: contact.address == null ||
-                                    contact.address!.isEmpty
-                                ? TextStyle(color: Colors.grey)
-                                : TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16,
-                                    letterSpacing: 1),
-                          ),
-                          trailing: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.location_on_outlined,
-                                color: Colors.black87,
-                              )),
-                        ),
-                      ),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            elevation: 2,
+            color: Color(0xffffebe6),
+            shadowColor: Colors.black,
+            child: ListTile(
+              title: Text(
+                 contact.number,
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                    letterSpacing: 1),
+              ),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                      onPressed: (){},
+                      icon: Icon(
+                        Icons.phone,
+                        color: Colors.black87,
+                      )),
+                  IconButton(
+                      onPressed: (){},
+                      icon: Icon(
+                        Icons.message,
+                        color: Colors.black87,
+                      )),
+                ],
+              ),
+            ),
+          ),
+          Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            elevation: 2,
+            color: Color(0xffffebe6),
+            shadowColor: Colors.black,
+            child: ListTile(
+              title: Text(
+                     contact.email == null ||
+                               contact.email!.isEmpty
+                          ? "No email added!"
+                          : contact.email.toString(),
+                      style:  contact.email == null ||
+                               contact.email!.isEmpty
+                          ? TextStyle(color: Colors.grey)
+                          : TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              letterSpacing: 1),
+                    ),
+              trailing: IconButton(
+                  onPressed:(){},
+                  icon: Icon(
+                          Icons.email_outlined,
+                          color: Colors.black87,
+                        )),
+            ),
+          ),
+          Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            elevation: 2,
+            color: Color(0xffffebe6),
+            shadowColor: Colors.black,
+            child: ListTile(
+              title:  Text(
+                       contact.address == null ||
+                               contact.address!.isEmpty
+                          ? "No location added!"
+                          :  contact.address.toString(),
+                      style:  contact.address == null ||
+                               contact.address!.isEmpty
+                          ? TextStyle(color: Colors.grey)
+                          : TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              letterSpacing: 1),
+                    ),
+              trailing: IconButton(
+                  onPressed:(){},
+                  icon:  Icon(
+                          Icons.location_on_outlined,
+                          color: Colors.black87,
+                        )),
+            ),
+          ),
+         
                     ],
                   );
                 }
-                if (snapshot.hasError) {
+                if(snapshot.hasError){
                   return Center(
                     child: Text("Failed to fatch data"),
                   );

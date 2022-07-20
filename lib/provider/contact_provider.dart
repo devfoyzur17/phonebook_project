@@ -6,7 +6,7 @@ import '../models/contact_model.dart';
 class ContactProvider extends ChangeNotifier{
 
   
-  List<ContactModel> contactList =[];
+  List<ContactModel> contactList =[]; 
 
 
 
@@ -28,6 +28,13 @@ class ContactProvider extends ChangeNotifier{
       
     });
   }
+  getAllFavoriteContact(){
+    DBHelper.getAllFavoriteContact().then((value) {
+      contactList = value;
+      notifyListeners();
+      
+    });
+  }
 
   Future<ContactModel> getContactById(int id) => DBHelper.getContactById(id);
 
@@ -38,6 +45,25 @@ class ContactProvider extends ChangeNotifier{
       notifyListeners();
     });
 
+  }
+
+  deleteContact(int id) async{
+    final rowID = await DBHelper.delete(id);
+    if(rowID > 0){
+      contactList.removeWhere((element) => element.id==id);
+      notifyListeners();
+    }
+  }
+
+  loadContent(int index){
+    switch(index){
+      case 0:
+        getAllContact();
+        break;
+      case 1:
+          getAllFavoriteContact();
+        break;
+    }
   }
   
 }

@@ -1,4 +1,6 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:phonebook_project/pages/contact_details_page.dart'; 
@@ -17,6 +19,8 @@ class ContactListPage extends StatefulWidget {
 }
 
 class _ContactListPageState extends State<ContactListPage> {
+  int _selectIndex=0;
+  bool _isExpanded = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +38,7 @@ class _ContactListPageState extends State<ContactListPage> {
 
               confirmDismiss: _showConformationDialog,
               onDismissed: (direction){
-                //provider.deleteContact(contact.id!);
+                provider.deleteContact(contact.id!);
               },
               
               key: ValueKey(contact.id),
@@ -43,9 +47,25 @@ class _ContactListPageState extends State<ContactListPage> {
                 alignment: Alignment.centerRight,
                 child: Icon(Icons.delete, color: Colors.white,),
               ),
-              child: Card(
+               child:  
+              Card(
                 elevation: 1,
                 child: ListTile(
+                   
+                   leading: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: contact.image == null
+                                ? (contact.gender == "Female"
+                                    ? Image.asset("assets/images/female.png",
+                                        height: 50, width: 50, fit: BoxFit.cover)
+                                    : Image.asset("assets/images/male.png",
+                                        height: 50, width: 50, fit: BoxFit.cover))
+                                : Image.file(
+                                    File(contact.image.toString()),
+                                    height: 50,
+                                    width: 50,
+                                    fit: BoxFit.cover),
+                          ),
                   
               
                   onTap: (){
@@ -66,7 +86,30 @@ class _ContactListPageState extends State<ContactListPage> {
       ),
 
     
-  
+  bottomNavigationBar: BottomAppBar(
+    clipBehavior: Clip.antiAlias,
+    notchMargin: 5,
+    shape: CircularNotchedRectangle(),
+    child: Consumer<ContactProvider>(
+      builder: (context, provider, _) => BottomNavigationBar(
+        currentIndex: _selectIndex,
+        backgroundColor: Colors.deepOrange,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white60,
+        onTap: (value){
+           
+            
+          _selectIndex = value;
+          provider.loadContent(_selectIndex);
+          
+        },
+      
+        items: [
+        BottomNavigationBarItem(icon: Icon(Icons.all_inbox), label: "All Contact"),
+        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favorite"),
+      ]),
+    ),
+  ),
 
  
 
@@ -76,6 +119,11 @@ class _ContactListPageState extends State<ContactListPage> {
         },
         child: Icon(Icons.add),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
+
+    
+
+
     );
   }
    Future<bool?> _showConformationDialog(DismissDirection direction) {

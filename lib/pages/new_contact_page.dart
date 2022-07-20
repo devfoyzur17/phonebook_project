@@ -244,6 +244,7 @@ class _NewContactPageState extends State<NewContactPage> {
               SizedBox(
                 height: 20,
               ),
+              
               Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30)),
